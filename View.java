@@ -16,6 +16,11 @@ public class View extends JFrame{
     JLabel header;
     JLabel facultyName;
     JLabel departmentLabel;
+
+    /**
+     * Constructor for View.java class
+     * @param queue holds the messages awaiting to be carried out
+     */
     public View(BlockingQueue<Search> queue) {
 
         this.queue = queue;
@@ -92,68 +97,69 @@ public class View extends JFrame{
     }
 
 
-    public void DisplaySearch(Finder find, Faculty model) {
-        Faculty staff = new Faculty(find.getFirstName(), find.getLastName(), find.getDepartment());
+    /**
+     * Opens a new window with the data that has been found
+     * @param firstName the first name of the faculty
+     * @param lastName the last name of the faculty
+     * @param email the email of the the faculty
+     * @param interestIn the interest of the faculty in terms of the field of CS
+     */
+    public void DisplaySearch(String firstName, String lastName, String email, String interestIn) {
 
-        Faculty temp = model.table.getElement(staff);
+        JFrame frame = new JFrame("Faculty");
 
-        if(temp == null) {
+        //Header
+        JLabel header2 = new JLabel("Faculty");
+        header2.setBounds(20, 20, 250, 33);
+        header2.setFont(new Font("Helvetica Neue", Font.BOLD, 20));
 
-            errorMessage("Sorry, Faculty Not Found! :(");
+        JLabel nameHeader = new JLabel("Name");
+        nameHeader.setBounds(20, 60, 250, 33);
+        nameHeader.setFont(new Font("helvetica Neue", Font.PLAIN, 18));
 
-        } else {
-            JFrame frame = new JFrame("Faculty");
+        JLabel emailHeader = new JLabel("Email");
+        emailHeader.setBounds(140, 60, 250, 33);
+        emailHeader.setFont(new Font("helvetica Neue", Font.PLAIN, 18));
 
-            //Header
-            JLabel header2 = new JLabel("Faculty");
-            header2.setBounds(20, 20, 250, 33);
-            header2.setFont(new Font("Helvetica Neue", Font.BOLD, 20));
-
-            JLabel nameHeader = new JLabel("Name");
-            nameHeader.setBounds(20, 60, 250, 33);
-            nameHeader.setFont(new Font("helvetica Neue", Font.PLAIN, 18));
-
-            JLabel emailHeader = new JLabel("Email");
-            emailHeader.setBounds(140, 60, 250, 33);
-            emailHeader.setFont(new Font("helvetica Neue", Font.PLAIN, 18));
-
-            JLabel interestHeader = new JLabel("Interest");
-            interestHeader.setBounds(360, 60, 250, 33);
-            interestHeader.setFont(new Font("helvetica Neue", Font.PLAIN, 18));
-
-
-            //Data
-            JLabel name = new JLabel(temp.getFirstName() + " " + temp.getLastName());
-            name.setBounds(20, 100, 250, 33);
-            name.setFont(new Font("Helvetica Neue", Font.PLAIN, 15));
-
-            JLabel email = new JLabel(temp.getEmail());
-            email.setBounds(140, 100, 250, 33);
-            email.setFont(new Font("Helvetica Neue", Font.PLAIN, 15));
-
-            JLabel interest = new JLabel(temp.getInterest());
-            interest.setBounds(360, 100, 500, 33);
-            interest.setFont(new Font("helvetica Neue", Font.PLAIN, 15));
+        JLabel interestHeader = new JLabel("Interest");
+        interestHeader.setBounds(360, 60, 250, 33);
+        interestHeader.setFont(new Font("helvetica Neue", Font.PLAIN, 18));
 
 
+        //Data
+        JLabel name = new JLabel(firstName + " " + lastName);
 
-            frame.setSize(750, 360);
-            frame.add(emailHeader);
-            frame.add(interestHeader);
-            frame.add(interest);
-            frame.add(email);
-            frame.add(header2);
-            frame.add(nameHeader);
-            frame.add(name);
-            frame.setLayout(null);
-            frame.setVisible(true);
-            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        name.setBounds(20, 100, 250, 33);
+        name.setFont(new Font("Helvetica Neue", Font.PLAIN, 15));
 
+        JLabel emailLabel = new JLabel(email);
 
-        }
+        emailLabel.setBounds(140, 100, 250, 33);
+        emailLabel.setFont(new Font("Helvetica Neue", Font.PLAIN, 15));
 
+        JLabel interest = new JLabel(interestIn);
+        interest.setBounds(360, 100, 500, 33);
+        interest.setFont(new Font("helvetica Neue", Font.PLAIN, 15));
+
+        frame.setSize(750, 360);
+        frame.add(emailHeader);
+        frame.add(interestHeader);
+        frame.add(interest);
+        frame.add(emailLabel);
+        frame.add(header2);
+        frame.add(nameHeader);
+        frame.add(name);
+        frame.setLayout(null);
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
+    /**
+     * Opens a new error message window to let the user
+     * know that the there was a problem
+     * @param message the programmer can pass a unique message that will be
+     * displayed in the error window
+     */
     public void errorMessage(String message) {
         JFrame frame = new JFrame("Error!");
 

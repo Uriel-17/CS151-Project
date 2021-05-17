@@ -9,6 +9,7 @@ public class Hash<T extends Comparable<T>> {
 
     private int numElements;
     private ArrayList<List<T>> Table;
+    private static Hash instance = new Hash(20);
 
     /**
      * Constructor for the Hash.java
@@ -19,7 +20,7 @@ public class Hash<T extends Comparable<T>> {
      * table. Sets numElements to 0
      * @param size the table size
      */
-    public Hash(int size) {
+    private Hash(int size) {
 
         numElements = 0;
 
@@ -33,6 +34,10 @@ public class Hash<T extends Comparable<T>> {
 
         }
 
+    }
+
+    public static Hash getInstance() {
+       return instance;
     }
 
 /**Accessors*/

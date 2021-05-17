@@ -3,6 +3,7 @@
  * Finder.java
  */
 public class Finder implements Search {
+
     private String firstName;
     private String lastName;
     private String department;

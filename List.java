@@ -5,7 +5,7 @@
 
 import java.util.NoSuchElementException;
 
-public class List<T extends Comparable<T> > {
+public class List<T extends Comparable<T>> {
 
     private class Node {
         private T data;
@@ -111,76 +111,6 @@ public class List<T extends Comparable<T> > {
         return n;
     }
 
-    /**
-     * Returns the index from 1 to length
-     * where value is located in the List
-     * by calling the private helper method
-     * binarySearch
-     * @param value the value to search for
-     * @return the index where value is
-     * stored from 1 to length, or -1 to
-     * indicate not found
-     * @precondition isSorted()
-     * @postcondition the position of the
-     * iterator must remain unchanged!
-     * @throws IllegalStateException when the
-     * precondition is violated.
-     */
-    public int binarySearch(T value) throws IllegalStateException {
-
-        int low = 0;
-
-        int high = length;
-
-        if(!inSortedOrder()) {
-
-            throw new IllegalStateException("binarySearch(): Unable to preform BinarySearch when the items are"
-                    + " not sorted");
-
-        }
-
-        return binarySearch(low, high, value);
-
-    }
-
-    /**
-     * Searches for the specified value in
-     * the List by implementing the recursive
-     * binarySearch algorithm
-     * @param low the lowest bounds of the search
-     * @param high the highest bounds of the search
-     * @param value the value to search for
-     * @return the index at which value is located
-     * or -1 to indicate not found
-     * @postcondition the location of the iterator
-     * must remain unchanged
-     */
-    private int binarySearch(int low, int high, T value) {
-
-        int mid = low + (high - low) /2;
-
-        advanceToIndex(mid);
-
-        if(high < low) {
-
-            return -1; // not found
-
-        }
-
-        if(iterator.data == value) {
-
-            return getIndex();
-
-        } else if (value.compareTo(getIterator()) < 0) {
-
-            return binarySearch(low, mid - 1, value);
-
-        } else {
-
-            return binarySearch(mid + 1, high, value);
-        }
-
-    }
 
     /**
      * Uses the iterative linear search
@@ -210,49 +140,6 @@ public class List<T extends Comparable<T> > {
         }
 
         return -1;
-
-    }
-    /**
-     * Determines whether a List is sorted
-     * by calling its recursive helper method
-     * isSorted
-     * Note: An empty List can be
-     * considered to be (trivially) sorted
-     * @return whether this List is sorted
-     */
-    public boolean inSortedOrder() {
-
-        if (length == 0) {
-
-            return true;
-
-        } else {
-
-            return inSortedOrder(first);
-        }
-
-    }
-    /**
-     * Helper method to inSortedOrder
-     * Determines whether a List is
-     * sorted in ascending order recursively
-     * @return whether this List is sorted
-     */
-    private boolean inSortedOrder(Node node) {
-
-        if(node.next == null) {
-
-            return true;
-
-        } else if(node.data.compareTo(node.next.data) < 0){
-
-            node = node.next;
-
-            return inSortedOrder(node);
-        }
-
-        return false;
-
 
     }
 
@@ -318,7 +205,6 @@ public class List<T extends Comparable<T> > {
                     "Can not return data.");
 
         }
-
 
         return iterator.data;
 

@@ -8,7 +8,9 @@ import java.util.concurrent.LinkedBlockingDeque;
 public class App {
     public static void main(String[] args) throws FileNotFoundException {
         BlockingDeque<Search> queue = new LinkedBlockingDeque<>();
+
         Faculty model = new Faculty();
+
         model.getData(); //Fills Hashtable with data
 
         View view = new View(queue);

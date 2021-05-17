@@ -8,7 +8,8 @@ import java.util.Scanner;
 
 public class Faculty implements Comparable<Faculty> {
     private static final String file = "Computer_Science.txt";
-    public Hash<Faculty> table = new Hash<Faculty>(30);
+    public Hash<Faculty> table = Hash.getInstance();
+
     private String firstName;
     private String lastName;
     private String email;
@@ -41,6 +42,7 @@ public class Faculty implements Comparable<Faculty> {
         this.interest = "Default Interest";
         this.department = "Default Department";
     }
+
     /**
      * Constructor for the Faculty class
      * @param firstName the faculties first name
@@ -142,16 +144,18 @@ public class Faculty implements Comparable<Faculty> {
 
 
     /**
-     * Fills the HashTable with CS faculty
-     * @param table the data base
-     * @throws FileNotFoundException
+     * Fills the HashTable with CS faculty data
+     * @throws FileNotFoundException if the file does not exist
      */
     public void getData() throws FileNotFoundException {
+
         File input = new File(file);
 
-        String firstName, lastName, email, department, research;
+        if(input == null) {
+            throw new FileNotFoundException("File does not exist");
+        }
 
-        int index = 0;
+        String firstName, lastName, email, department, research;
 
         Scanner scan = new Scanner(input);
 
@@ -170,20 +174,17 @@ public class Faculty implements Comparable<Faculty> {
             Faculty faculty = new Faculty(firstName, lastName, email, research, department);
 
             table.insert(faculty);
-
-            index++;
         }
-
-        //t.printTable();
-
     }
 
 
     /**
      * Determines whether two classes objects are
-     * equal by comparing CRN number of the classes
+     * equal by comparing first name's
+     * if the first names are the same then compare
+     * by department
      * @param //object of the second Classes
-     * @return whether the Movies are equal
+     * @return whether the Faculty are equal
      */
     @Override public boolean equals(Object o) {
 
@@ -199,21 +200,15 @@ public class Faculty implements Comparable<Faculty> {
 
             Faculty L = (Faculty) o;
 
-            if(this.getFirstName().equals(L.getFirstName()) && this.getLastName().equals(L.getLastName())) {
+            if(this.getFirstName().equalsIgnoreCase(L.getFirstName()) && this.getLastName().equalsIgnoreCase(L.getLastName())) {
 
-                if(this.getDepartment().equals(L.getDepartment())) {
+                if(this.getDepartment().equalsIgnoreCase(L.getDepartment())) {
 
                     return true;
                 }
             }
-
             return false;
-
-
-
         }
-
-
     }
 
 
@@ -259,9 +254,9 @@ public class Faculty implements Comparable<Faculty> {
 
     /**
      * Returns a consistent hash code for
-     * each Movie by summing the Unicode values
+     * each Faculty by summing the Unicode values
      * of each character in the key
-     * Key = title + director
+     * Key = firstName + lastName + department
      * @return the hash code
      */
     @Override public int hashCode() {
@@ -277,6 +272,11 @@ public class Faculty implements Comparable<Faculty> {
         return sum;
     }
 
+    /**
+     * List with each value separated by a space
+     * At the end of the List is a new line
+     * @return the string with the format First Name Last Name Email Interest Department
+     */
     @Override public String toString() {
 
         String result = "First Name: " + firstName
