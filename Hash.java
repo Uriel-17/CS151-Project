@@ -36,6 +36,10 @@ public class Hash<T extends Comparable<T>> {
 
     }
 
+    /**
+     * Get Instance of the variable
+     * @return instance
+     */
     public static Hash getInstance() {
        return instance;
     }
